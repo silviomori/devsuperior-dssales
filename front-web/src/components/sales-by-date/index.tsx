@@ -1,4 +1,13 @@
 import './styles.css';
+import ReactApexChart from 'react-apexcharts';
+import { chartOptions } from './helpers';
+
+const initialData = [
+  { x: '2017-01-01', y: 50 },
+  { x: '2017-01-05', y: 66 },
+  { x: '2017-01-12', y: 48 },
+  { x: '2017-01-28', y: 53 }
+];
 
 function SalesByDate() {
   return (
@@ -15,7 +24,15 @@ function SalesByDate() {
             This chart shows sales across all stores
           </span>
         </div>
-        <div className="sales-by-date-chart"></div>
+        <div className="sales-by-date-chart">
+          <ReactApexChart
+            options={chartOptions}
+            series={[{ name: 'Sales', data: initialData }]}
+            type="bar"
+            height={240}
+            width="100%"
+          />
+        </div>
       </div>
     </div>
   );

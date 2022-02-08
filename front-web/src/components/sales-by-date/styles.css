@@ -16,6 +16,7 @@
   height: 240px;
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .sales-by-date-quantity-value {
@@ -35,7 +36,5 @@
 }
 
 .sales-by-date-chart {
-  border: 1px solid var(--light-gray-150);
-  height: 100%;
-  width: 100%;
+  width: 890px;
 }
