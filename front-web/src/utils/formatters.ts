@@ -5,3 +5,7 @@ export const formatPrice = (price: number) => {
     currency: 'USD'
   }).format(price);
 };
+
+export const formatDate = (date: Date) => {
+  return date.toLocaleDateString();
+};

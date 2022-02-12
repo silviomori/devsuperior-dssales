@@ -3,10 +3,14 @@ import ReactApexChart from 'react-apexcharts';
 import { buildChartSeries, chartOptions, sumSalesByDate } from './helpers';
 import { useEffect, useState } from 'react';
 import { makeRequest } from '../../utils/request';
-import { SalesByDate, SalesByDateChartSeries } from '../../types';
-import { formatPrice } from '../../utils/formatters';
+import { FilterData, SalesByDate, SalesByDateChartSeries } from '../../types';
+import { formatDate, formatPrice } from '../../utils/formatters';
 
-function SalesByDateComponent() {
+type Props = {
+  filterData?: FilterData;
+};
+
+function SalesByDateComponent({ filterData }: Props) {
   const [salesByDateChartSeries, setSalesByDateChartSeries] = useState<SalesByDateChartSeries[]>(
     []
   );
@@ -25,7 +29,11 @@ function SalesByDateComponent() {
     <div className="base-card sales-by-date-container">
       <div>
         <h4 className="sales-by-date-title">Daily Sales Report</h4>
-        <span className="sales-by-date-period">01/01/2017 to 01/31/2017</span>
+        {filterData?.dates && (
+          <span className="sales-by-date-period">
+            {formatDate(filterData.dates[0])} to {formatDate(filterData.dates[1])}
+          </span>
+        )}
       </div>
       <div className="sales-by-date-data">
         <div className="sales-by-date-quantity-container">
