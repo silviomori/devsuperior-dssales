@@ -1,4 +1,5 @@
 import { ApexOptions } from 'apexcharts';
+import { SalesByDate } from '../../types';
 
 export const chartOptions = {
   legend: {
@@ -53,3 +54,13 @@ export const chartOptions = {
     }
   }
 } as ApexOptions;
+
+export const buildChartSeries = (salesByDateArray: SalesByDate[] = []) => {
+  return salesByDateArray.map(({ date, sum }) => ({ x: date, y: sum }));
+};
+
+export const sumSalesByDate = (salesByDateArray: SalesByDate[] = []) => {
+  return salesByDateArray.reduce((sum, item) => {
+    return sum + item.sum;
+  }, 0);
+};

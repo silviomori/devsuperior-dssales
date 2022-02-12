@@ -1,15 +1,26 @@
 import './styles.css';
 import ReactApexChart from 'react-apexcharts';
-import { chartOptions } from './helpers';
+import { buildChartSeries, chartOptions, sumSalesByDate } from './helpers';
+import { useEffect, useState } from 'react';
+import { makeRequest } from '../../utils/request';
+import { SalesByDate, SalesByDateChartSeries } from '../../types';
+import { formatPrice } from '../../utils/formatters';
 
-const initialData = [
-  { x: '2017-01-01', y: 50 },
-  { x: '2017-01-05', y: 66 },
-  { x: '2017-01-12', y: 48 },
-  { x: '2017-01-28', y: 53 }
-];
+function SalesByDateComponent() {
+  const [salesByDateChartSeries, setSalesByDateChartSeries] = useState<SalesByDateChartSeries[]>(
+    []
+  );
+  const [salesByDateTotalSum, setSalesByDateTotalSum] = useState(0);
 
-function SalesByDate() {
+  useEffect(() => {
+    makeRequest
+      .get<SalesByDate[]>('/sales/by-date?minDate=2017-01-01&maxDate=2017-01-31&gender=FEMALE')
+      .then((response) => {
+        setSalesByDateChartSeries(buildChartSeries(response.data));
+        setSalesByDateTotalSum(sumSalesByDate(response.data));
+      });
+  }, []);
+
   return (
     <div className="base-card sales-by-date-container">
       <div>
@@ -18,7 +29,7 @@ function SalesByDate() {
       </div>
       <div className="sales-by-date-data">
         <div className="sales-by-date-quantity-container">
-          <h2 className="sales-by-date-quantity-value">464,988.00</h2>
+          <h2 className="sales-by-date-quantity-value">{formatPrice(salesByDateTotalSum)}</h2>
           <span className="sales-by-date-quantity-label">Sales in the period</span>
           <span className="sales-by-date-quantity-description">
             This chart shows sales across all stores
@@ -27,7 +38,7 @@ function SalesByDate() {
         <div className="sales-by-date-chart">
           <ReactApexChart
             options={chartOptions}
-            series={[{ name: 'Sales', data: initialData }]}
+            series={[{ name: 'Sales', data: salesByDateChartSeries }]}
             type="bar"
             height={240}
             width="100%"
@@ -38,4 +49,4 @@ function SalesByDate() {
   );
 }
 
-export default SalesByDate;
+export default SalesByDateComponent;
