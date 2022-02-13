@@ -48,7 +48,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 			+ "WHERE obj in :sales")
 	List<Sale> salesWithOtherEntities(List<Sale> sales);
 	
-	@Query("SELECT new com.devsuperior.dssales.dto.SalesSummaryDTO(SUM(obj.total), MAX(obj.total), MIN(obj.total), AVG(obj.total), COUNT(obj.id)) "
+	@Query("SELECT new com.devsuperior.dssales.dto.SalesSummaryDTO(SUM(obj.total), MIN(obj.total), MAX(obj.total), AVG(obj.total), COUNT(obj.id)) "
 			+ "FROM Sale AS obj "
 			+ "WHERE (CAST(:min AS date) IS NULL OR obj.date >= :min) "
 			+ "AND (CAST(:max AS date) IS NULL OR obj.date <= :max) "
