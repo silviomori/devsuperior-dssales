@@ -11,6 +11,21 @@ export type SalesSummaryData = {
   count: number;
 };
 
+export type SalesByStoreData = {
+  storeName: string;
+  sum: number;
+};
+
+export type SalesByPaymentMethodData = {
+  description: string;
+  sum: number;
+};
+
+export type PieChartData = {
+  labels: string[];
+  series: number[];
+};
+
 export type SalesByDateChartSeries = {
   x: string;
   y: number;

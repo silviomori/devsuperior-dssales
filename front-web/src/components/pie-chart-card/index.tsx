@@ -4,11 +4,11 @@ import './styles.css';
 
 type Props = {
   name: string;
-  labels: string[];
-  series: number[];
+  labels?: string[];
+  series?: number[];
 };
 
-function PieChartCard({ name, labels, series }: Props) {
+function PieChartCard({ name, labels = [], series = [] }: Props) {
   return (
     <div className="pie-chart-card">
       <ReactApexChart
