@@ -58,7 +58,7 @@ function App() {
             series={salesByPaymentMethodData?.series}
           />
         </div>
-        <SalesTable />
+        <SalesTable filterData={filterData} />
       </div>
     </>
   );

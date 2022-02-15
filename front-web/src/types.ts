@@ -31,6 +31,21 @@ export type SalesByDateChartSeries = {
   y: number;
 };
 
+export type SaleDetailsResponse = {
+  content: SaleDetails[];
+};
+
+export type SaleDetails = {
+  id: number;
+  date: string;
+  volume: number;
+  total: number;
+  gender: Gender;
+  categoryName: string;
+  paymentMethod: string;
+  storeName: string;
+};
+
 export type Gender = 'MALE' | 'FEMALE' | 'OTHER';
 
 export type FilterData = {
