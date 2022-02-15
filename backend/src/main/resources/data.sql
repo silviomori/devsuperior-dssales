@@ -1,7 +1,7 @@
-INSERT INTO tb_category(name) VALUES ('Comidas e bebidas');
-INSERT INTO tb_category(name) VALUES ('Cosméticos e higiene pessoal');
-INSERT INTO tb_category(name) VALUES ('Utilidades domésticas');
-INSERT INTO tb_category(name) VALUES ('Roupas e acessórios');
+INSERT INTO tb_category(name) VALUES ('Food & Beverage');
+INSERT INTO tb_category(name) VALUES ('Personal Care');
+INSERT INTO tb_category(name) VALUES ('Household Goods');
+INSERT INTO tb_category(name) VALUES ('Clothing and Accessories');
 
 INSERT INTO tb_store(name) VALUES('Bakersfield');
 INSERT INTO tb_store(name) VALUES('Visalia');
