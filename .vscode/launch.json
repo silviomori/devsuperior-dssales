@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DssalesApplication<dssales>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.devsuperior.dssales.DssalesApplication",
+            "projectName": "dssales",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
