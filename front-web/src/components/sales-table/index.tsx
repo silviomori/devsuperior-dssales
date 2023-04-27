@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useAppContext } from '../../AppContext';
 import { FilterData, SaleDetails, SaleDetailsResponse } from '../../types';
 import { formatDate, formatGender, formatPrice } from '../../utils/formatters';
 import { buildFilterParams, makeRequest } from '../../utils/request';
@@ -9,14 +10,18 @@ type Props = {
 };
 
 function SalesTable({ filterData }: Props) {
+  const { isConnected } = useAppContext();
+
   const [saleDetails, setSaleDetails] = useState<SaleDetails[]>([]);
   const params = useMemo(() => buildFilterParams(filterData), [filterData]);
 
   useEffect(() => {
-    makeRequest.get<SaleDetailsResponse>('/sales', { params }).then((response) => {
-      setSaleDetails(response.data.content);
-    });
-  }, [params]);
+    if (isConnected) {
+      makeRequest.get<SaleDetailsResponse>('/sales', { params }).then((response) => {
+        setSaleDetails(response.data.content);
+      });
+    }
+  }, [params, isConnected]);
 
   return (
     <div className="sales-table-container base-card">

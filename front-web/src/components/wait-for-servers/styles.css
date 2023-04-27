@@ -1,0 +1,31 @@
+.modal-background {
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(52, 64, 84, 0.9);
+}
+
+.modal-card {
+  width: 352px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.modal-card * {
+  color: var(--primary-color);
+}
+
+.modal-card-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
