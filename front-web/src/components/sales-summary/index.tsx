@@ -7,6 +7,7 @@ import { ReactComponent as MaximumIcon } from '../../assets/sales-summary-maximu
 import { FilterData, SalesSummaryData } from '../../types';
 import { useEffect, useMemo, useState } from 'react';
 import { buildFilterParams, makeRequest } from '../../utils/request';
+import { useAppContext } from '../../AppContext';
 
 type Props = {
   filterData?: FilterData;
@@ -20,14 +21,18 @@ const initialSummaryData: SalesSummaryData = {
 };
 
 function SalesSummary({ filterData }: Props) {
+  const { isConnected } = useAppContext();
+
   const [summaryData, setSummaryData] = useState<SalesSummaryData>(initialSummaryData);
   const params = useMemo(() => buildFilterParams(filterData), [filterData]);
 
   useEffect(() => {
-    makeRequest.get<SalesSummaryData>('/sales/summary', { params }).then((response) => {
-      setSummaryData(response.data);
-    });
-  }, [params]);
+    if (isConnected) {
+      makeRequest.get<SalesSummaryData>('/sales/summary', { params }).then((response) => {
+        setSummaryData(response.data);
+      });
+    }
+  }, [params, isConnected]);
 
   return (
     <div className="sales-summary-container">

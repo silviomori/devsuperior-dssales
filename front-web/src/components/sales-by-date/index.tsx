@@ -5,12 +5,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { buildFilterParams, makeRequest } from '../../utils/request';
 import { FilterData, SalesByDate, SalesByDateChartSeries } from '../../types';
 import { formatDate, formatPrice } from '../../utils/formatters';
+import { useAppContext } from '../../AppContext';
 
 type Props = {
   filterData?: FilterData;
 };
 
 function SalesByDateComponent({ filterData }: Props) {
+  const { isConnected } = useAppContext();
+
   const [salesByDateChartSeries, setSalesByDateChartSeries] = useState<SalesByDateChartSeries[]>(
     []
   );
@@ -19,11 +22,13 @@ function SalesByDateComponent({ filterData }: Props) {
   const params = useMemo(() => buildFilterParams(filterData), [filterData]);
 
   useEffect(() => {
-    makeRequest.get<SalesByDate[]>('/sales/by-date', { params }).then((response) => {
-      setSalesByDateChartSeries(buildChartSeries(response.data));
-      setSalesByDateTotalSum(sumSalesByDate(response.data));
-    });
-  }, [params]);
+    if (isConnected) {
+      makeRequest.get<SalesByDate[]>('/sales/by-date', { params }).then((response) => {
+        setSalesByDateChartSeries(buildChartSeries(response.data));
+        setSalesByDateTotalSum(sumSalesByDate(response.data));
+      });
+    }
+  }, [params, isConnected]);
 
   return (
     <div className="base-card sales-by-date-container">
